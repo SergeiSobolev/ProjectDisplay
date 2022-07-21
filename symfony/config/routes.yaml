@@ -1,0 +1,67 @@
+index:
+  path: /{page}
+  controller: App\Controller\IndexController::index
+  defaults:   { page: 1 }
+  requirements:
+    page: \d+
+
+admin:
+  resource: routes/admin.yaml
+  prefix: /admin
+
+view_product:
+  path: /product/{slug}
+  controller: App\Controller\ProductController::showProduct
+
+view_category:
+  path: /category/{category}/product
+  controller: App\Controller\IndexController::showCategory
+  methods: GET
+  requirements:
+    product: \d+
+
+view_cart:
+  path: /cart
+  controller: App\Controller\CartController::showCart
+
+app_register:
+  path: /register
+  controller: App\Controller\RegistrationController:register
+
+email_confirmation:
+  path: /confirm/{code}
+  controller: App\Controller\RegistrationController:confirmEmail
+
+app_login:
+  path: /login
+  controller: App\Controller\UserAuthSecurityController:login
+
+app_logout:
+  path: /logout
+  controller: App\Controller\UserAuthSecurityController:logout
+
+profile:
+  path: /profile
+  controller: App\Controller\UserAuthSecurityController:profile
+
+checkout:
+  path: /checkout
+  controller: App\Controller\CartController::checkout
+
+product_add_cart:
+  path: /cart/product/{id}/add
+  controller: App\Controller\CartController:addProductCartAjax
+  options:
+    expose: true
+  requirements:
+    id: \d+
+
+check_count_product_in_cart:
+  path: /api/get-count-product-in-cart
+  controller: App\Controller\Api\UpdateDataAjaxController:getCountProductInCart
+  options:
+    expose: true
+
+get_products_api:
+  path: /get-products-api
+  controller: App\Controller\Api\ApiController::getProductAPI

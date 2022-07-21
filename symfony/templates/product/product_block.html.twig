@@ -1,0 +1,33 @@
+<div class="product">
+        {% if isProductInCart(product) %}
+            <button class="btn btn-outline-success btn-sm subscribe add-to-cart active" data-id="{{ product.id }}">В корзину</button>
+        {% else %}
+            <button class="btn btn-outline-success btn-sm subscribe add-to-cart" data-id="{{ product.id }}">В корзину</button>
+        {% endif %}
+
+    <div class="product-img">
+        <img src="{{ ('/uploads/' ~ product.productPromo)|imagine_filter('my_thumb') }}" alt="home-1"
+             class="img-responsive">
+        {% if productDTO is defined %}
+        <img src="{{ productDTO.image }}" alt="home-1" class="img-responsive">
+        {% endif %}
+    </div>
+    {% if app.user %}
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <div class="product-tools">
+                <p class="product-title-tools-edit">
+                    <a href="{{ path('edit_product', {product: product.id}) }}"
+                       class="btn btn-outline-success btn-sm  list-group-item">редактировать</a>
+                </p>
+                <p class="product-title-tools-delete">
+                    <a href="{{ path('delete_product', {product: product.id}) }}" class="btn btn-outline-success btn-sm  list-group-item">удалить</a>
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
+    <p class="product-title">
+        <a href="{{ path('view_product', {slug: product.slug}) }}">{{ product.name }}</a>
+    </p>
+    <p class="product-desc">{{ product.description }}</p>
+    <p class="product-price">Цена: {{ product.price | price }}</p>
+</div>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Привет Мир!{% endblock %}
+
+{% block body %}
+
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-4">
+                {{ render(controller('App\\Controller\\IndexController::showCategories')) }}
+            </div>
+            <div class="col-md-8">
+                <div class="col-md-8 products">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ include('product/product_block.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

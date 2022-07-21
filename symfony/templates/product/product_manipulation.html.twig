@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {% if edit is defined %}
+        Редактировать товар
+    {% else %}
+        Добавить товар
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-4">
+                {{ render(controller('App\\Controller\\IndexController::showCategories')) }}
+            </div>
+            <div class="col-md-8">
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_label(form.name, 'Название', {'label_attr': {'class': 'col-md-1 control-label'}}) }}
+                {{ form_widget(form.name) }}
+                {{ form_label(form.description, 'Описание', {'label_attr': {'class': 'col-md-1 control-label'}}) }}
+                {{ form_widget(form.description) }}
+                {{ form_label(form.price, 'Цена', {'label_attr': {'class': 'col-md-1 control-label'}}) }}
+                {{ form_widget(form.price) }}
+                {{ form_label(form.warehouse, 'Колличество на складе', {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+                {{ form_widget(form.warehouse) }}
+                <ul id="fields-list"
+                    data-prototype="{{ form_widget(form.productFields.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}">
+
+                    {% for productField in form.productFields %}
+                        <li>
+                            {{ form_row(productField.name) }}
+                            {{ form_row(productField.value) }}
+
+                            <a href="" class="remove-another-collection-widget" data-list="#delete_fields-list">
+                                Удалить свойство товара
+                            </a>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+                <a href="" class="add-another-collection-widget" data-list="#fields-list">Добавить свойство товара</a>
+                <br> <br>
+                <label>
+                    <a class="btn btn-secondary">Добавить картинку</a>
+                    <input class="file-upload" type="file" style="display: none">
+                </label>
+                <div id="image-container" class="collection-container"
+                    data-prototype="{{ form_widget(form.imageProducts.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<div class="image-item"></div>'|e }}">
+                    {% for image in form.imageProducts %}
+                        <div class="image-item">
+                            <div class="img-relative">
+                                <a href="#" class="icon-deleted">X</a>
+                                <img src="/uploads/{{ image.vars.value.image.filename }}" class="img-add">
+                            </div>
+                            {{ form_widget(image) }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {{ form_label(form.category, 'Категория', {'label_attr': {'class': 'col-md-2 control-label'}}) }}
+                {{ form_widget(form.category) }}
+
+                <br>
+                {% if edit is defined %}
+                    <button type="submit" class="btn btn-secondary">Редактировать</button>
+                {% else %}
+                    <button type="submit" class="btn btn-secondary">Добавить</button>
+                {% endif %}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

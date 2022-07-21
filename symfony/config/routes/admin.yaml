@@ -1,0 +1,21 @@
+new_product:
+  path: /product/new
+  controller: App\Controller\ProductController::addProduct
+
+edit_product:
+  path: /product/{product}/edit
+  controller: App\Controller\ProductController::editProduct
+  requirements:
+    product: \d+
+
+delete_product:
+  path: /product/{product}/delete
+  controller: App\Controller\ProductController::deleteProduct
+  requirements:
+    product: \d+
+
+upload_img:
+  path: /upload-img
+  controller: App\Controller\Api\UploadsAjaxController:uploadImg
+  options:
+    expose: true

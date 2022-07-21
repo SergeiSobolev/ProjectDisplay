@@ -1,0 +1,10 @@
+<h1>Вас приветсвует {{ company_name }}!</h1>
+
+<p>
+    Мы рады сообщить Вам ({{ emailUser }}), об успешной авторизации на нашем сайте <a href="#">site.ru</a>
+</p>
+<p>Чтобы завершить регистрацию, подтвердите <a href="{{ url('email_confirmation', {'code': confirmationCode }) }}">электронный адрес</a></p>
+<br>
+<p>
+    (this link is valid until {{ expiration_date|date('F jS') }})
+</p>

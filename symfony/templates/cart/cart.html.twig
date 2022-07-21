@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Корзина</h1>
+        {% if cart.items.count > 0 %}
+            <div class="row mt-4">
+                {{ include('cart/cart_items.html.twig') }}
+                {{ include('cart/cart_sum.html.twig') }}
+                {% if errors is defined %}
+                    {{ include('cart/validation.html.twig') }}
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Ваша корзина пуста. Перейти к выбору товара <a href="{{ path('index') }}">Гавная</a>.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
